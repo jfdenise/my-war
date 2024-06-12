@@ -1,0 +1,55 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  labels:
+    org.wildfly.glow: ""
+    deployment: "my-war-main"
+  name: "my-war-main"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: "my-war-main"
+  strategy:
+    type: "RollingUpdate"
+  template:
+    metadata:
+      labels:
+        org.wildfly.glow: ""
+        deployment: "my-war-main"
+    spec:
+      containers:
+      - env:
+        - name: "MY_ENV"
+          value: "FOO_BAR_NAR"
+        image: "quay.io/jdenise/pipeline-wildfly-app:github_com_jfdenise_my-war_revision_main-1-fcee147038b66664141bd4981ebeb18cdeaf8486"
+        imagePullPolicy: "IfNotPresent"
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: "/health/ready"
+            port: "admin"
+            scheme: "HTTP"
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: "my-war-main"
+        ports:
+        - containerPort: 8080
+          name: "http"
+          protocol: "TCP"
+        - containerPort: 9990
+          name: "admin"
+          protocol: "TCP"
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: "/health/ready"
+            port: "admin"
+            scheme: "HTTP"
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        terminationMessagePath: "/dev/termination-log"
+      restartPolicy: "Always"
