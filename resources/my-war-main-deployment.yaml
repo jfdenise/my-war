@@ -23,7 +23,7 @@ spec:
       - env:
         - name: "MY_ENV"
           value: "XXXTHURSDAY"
-        image: "my-war-main:latest"
+        image: "quay.io/jdenise/pipeline-wildfly-app:github_com_jfdenise_my-war_revision_main-3-0c7c7a0e186c4ceeb6b002621ed15b672f401d88"
         imagePullPolicy: "IfNotPresent"
         livenessProbe:
           failureThreshold: 3
