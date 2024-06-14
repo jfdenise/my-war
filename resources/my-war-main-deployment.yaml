@@ -5,7 +5,6 @@ metadata:
   labels:
     org.wildfly.glow: ""
     deployment: "my-war-main"
-    my.label: "foo"
   name: "my-war-main"
 spec:
   replicas: 1
@@ -21,7 +20,7 @@ spec:
         deployment: "my-war-main"
     spec:
       containers:
-      - image: "quay.io/jdenise/pipeline-wildfly-app:github_com_jfdenise_my-war_revision_main-5-81a58ccbd9c9876120a613cb0b92cdd0f7635765"
+      - image: "quay.io/jdenise/pipeline-wildfly-app:github_com_jfdenise_my-war_revision_main-6-63df282f89298b4115dcae425ba144a86222c036"
         imagePullPolicy: "IfNotPresent"
         livenessProbe:
           failureThreshold: 3
